@@ -50,7 +50,15 @@ ui <- pageWithSidebar(
       
     checkboxInput(inputId = "tt3",
       label = strong("Show TT3"),
-      value = TRUE)
+      value = TRUE),
+      
+    dateInput(inputId = "date_min", "Date Start", value = "2008-01-11", min = "2008-01-11", max = "2013-08-01",
+      format = "yyyy-mm-dd", startview = "month", weekstart = 0,
+      language = "en", width = NULL),
+      
+    dateInput(inputId = "date_max", "Date End", value = "2013-08-01", min = "2008-01-11", max = "2013-08-01",
+      format = "yyyy-mm-dd", startview = "month", weekstart = 0,
+      language = "en", width = NULL)
 
   ),
   mainPanel(

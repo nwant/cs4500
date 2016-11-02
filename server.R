@@ -2,6 +2,7 @@ library(shiny)
 
 arisa <- read.csv("./data/ARISA.CSV", header = TRUE)
 arisa$source <- substr(arisa$X, 1, 3)
+arisa$date <- as.Date(substr(arisa$X, 5, 100), "%m_%d_%y")
 
 server <- function(input, output) {
   output$hist <- renderPlot({ 
@@ -10,14 +11,23 @@ server <- function(input, output) {
   })
 
   output$arisa_plot <- renderPlot({
-    filtered <- arisa[arisa$source %in% c(if(input$tt1) "TT1" else NULL, if(input$tt2) "TT2" else NULL, if(input$tt3) "TT3" else NULL),]
+    tt1_str <- if(input$tt1) "TT1" else NULL
+    tt2_str <- if(input$tt2) "TT2" else NULL
+    tt3_str <- if(input$tt3) "TT3" else NULL
+    source_vec <- c(tt1_str, tt2_str, tt3_str)
+    
+    filtered <- arisa[arisa$source %in% source_vec,]
+    filtered <- filtered[filtered$date >= input$date_min,]
+    filtered <- filtered[filtered$date <= input$date_max,]
     filtered$X <- NULL
     filtered$source <- NULL
+    filtered$date <- NULL
     
     # Render a barplot
-    barplot(colSums(filtered),
-            main=input$region,
-            ylab="Number of Telephones",
-            xlab="Year")
+    bp <- barplot(colSums(filtered) / nrow(filtered),
+            main=paste("Relative abundance of bacteria from", paste(source_vec, collapse=","), "from", input$date_min, "to", input$date_max),
+            ylab="Relative Abundance",
+            xlab="Species")
+    
   })
 }
