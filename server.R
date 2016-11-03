@@ -2,7 +2,7 @@ library(shiny)
 source("./config.R")
 source("./data/repo.R")
 
-# get the configuration named list and data
+# get the configuration named list and data frames from csvs
 config <- get.config()
 arisa <- get.arisa(config)
 
@@ -12,7 +12,7 @@ server <- function(input, output) {
     hist(rnorm(100), main = title)
   })
 
-  # render plot for ARISA DAT
+  # render plot for ARISA data
   output$arisa_plot <- renderPlot({
     tt1_str <- if(input$tt1) "TT1" else NULL
     tt2_str <- if(input$tt2) "TT2" else NULL
@@ -25,8 +25,6 @@ server <- function(input, output) {
     filtered$X <- NULL
     filtered$source <- NULL
     filtered$date <- NULL
-   
-    
     
     # Render a barplot
     barplot(colSums(filtered) / nrow(filtered),
@@ -35,5 +33,7 @@ server <- function(input, output) {
             xlab="Species")
     
   })
+  
+  
   
 }
