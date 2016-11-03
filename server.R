@@ -1,8 +1,10 @@
 library(shiny)
+source("./config.R")
+source("./data/repo.R")
 
-arisa <- read.csv("./data/ARISA.CSV", header = TRUE)
-arisa$source <- substr(arisa$X, 1, 3)
-arisa$date <- as.Date(substr(arisa$X, 5, 100), "%m_%d_%y")
+# get the configuration named list and data
+config <- get.config()
+arisa <- get.arisa(config)
 
 server <- function(input, output) {
   output$hist <- renderPlot({ 
@@ -10,6 +12,7 @@ server <- function(input, output) {
     hist(rnorm(100), main = title)
   })
 
+  # render plot for ARISA DAT
   output$arisa_plot <- renderPlot({
     tt1_str <- if(input$tt1) "TT1" else NULL
     tt2_str <- if(input$tt2) "TT2" else NULL
@@ -22,12 +25,15 @@ server <- function(input, output) {
     filtered$X <- NULL
     filtered$source <- NULL
     filtered$date <- NULL
+   
+    
     
     # Render a barplot
-    bp <- barplot(colSums(filtered) / nrow(filtered),
+    barplot(colSums(filtered) / nrow(filtered),
             main=paste("Relative abundance of bacteria from", paste(source_vec, collapse=","), "from", input$date_min, "to", input$date_max),
             ylab="Relative Abundance",
             xlab="Species")
     
   })
+  
 }
