@@ -32,6 +32,7 @@ ui <- pageWithSidebar(
 
   ),
   mainPanel(
-    plotOutput("arisa_plot")
+    plotOutput("arisa_plot"),
+    plotOutput("ciliates_plot")
   )
 )
