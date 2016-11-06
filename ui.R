@@ -1,3 +1,9 @@
+source('./config.R')
+config <- get.config()
+
+if (!require(shiny)) {
+  install.packages("shiny", quiet=TRUE, repos=config['R.repos'], dependencies=TRUE)
+}
 library(shiny)
 
 
