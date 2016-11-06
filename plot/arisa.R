@@ -1,10 +1,12 @@
-render.arisa.plot <- function(ciliates.df, sources, date.min, date.max) {
-  filtered <- arisa[arisa$source %in% sources,]
-  filtered <- filtered[filtered$date >= date.min,]
-  filtered <- filtered[filtered$date <= date.max,]
+
+
+render.arisa.plot <- function(arisa.df, sources, date.min, date.max) {
+  filtered <- arisa.df[arisa.df$source %in% sources,]
+  filtered <- filtered[filtered$Date >= date.min,]
+  filtered <- filtered[filtered$Date <= date.max,]
   filtered$X <- NULL
   filtered$source <- NULL
-  filtered$date <- NULL
+  filtered$Date <- NULL
   
   
   # Render a barplot
