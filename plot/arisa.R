@@ -2,11 +2,11 @@
 
 render.arisa.plot <- function(arisa.df, sources, date.min, date.max) {
   filtered <- arisa.df[arisa.df$source %in% sources,]
-  filtered <- filtered[filtered$Date >= date.min,]
-  filtered <- filtered[filtered$Date <= date.max,]
+  filtered <- filtered[filtered$date >= date.min,]
+  filtered <- filtered[filtered$date <= date.max,]
   filtered$X <- NULL
   filtered$source <- NULL
-  filtered$Date <- NULL
+  filtered$date <- NULL
   
   
   # Render a barplot

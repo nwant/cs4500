@@ -3,10 +3,9 @@ source("./data/repo.R")
 source("./plot/ciliates.R")
 source("./plot/arisa.R")
 # get the configuration named list and data frames from csvs
-config <- get.config()
-
 library(shiny)
 
+config <- get.config()
 arisa <- get.arisa(config)
 ciliates.1 <- get.ciliates.1(config)
 
@@ -32,7 +31,7 @@ server <- function(input, output) {
     sources <- c(tt1, tt2, tt3)
     date.min <- input$date_min
     date.max <- input$date_max
-    # 
+    
     p <- render.ciliates.plot(ciliates.1, sources, date.min, date.max)
     print(p)
   })
