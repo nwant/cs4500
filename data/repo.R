@@ -30,8 +30,10 @@ get.ciliates.1 <- function(config) {
 
 get.all <- function(config) {
   arisa <- get.arisa(config)
+  arisa$class <- "arisa"
   ciliates.1 <- get.ciliates.1(config)
-  
+  arisa$class <- "ciliates"
+   
   # stardardize each raw dataframe by removing unnecessary data columns and making 
   ciliates.1 <- rename(ciliates.1, c("Date" = "date", "site" = "source"))
   ciliates.1$TotalCellsPerLiter <- NULL
@@ -39,11 +41,11 @@ get.all <- function(config) {
   ciliates.1$year <- NULL
   ciliates.1$X <- NULL
   
+  # merge on date and source
   ciliates.1$datesource <- paste(ciliates.1$date, ciliates.1$source, sep=" ")
   arisa$datesource <- paste(arisa$date, arisa$source, sep=" ")
-  
-  # merge on date
   merged.by.date <- merge(ciliates.1, arisa, by="datesource", all =T)
+  merged.by.date$datesource <- NULL
   
   return(merged.by.date)
 }
