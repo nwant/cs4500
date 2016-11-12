@@ -1,4 +1,4 @@
-filter.all.data <- function(df, species, sources, classes, date.min, date.max, blur) {
+filter.all.data <- function(df, sources, classes, date.min, date.max, blur=NULL, species="all") {
   # filter by site location (e.g. T1, T2, and/or T3)
   filtered <- df[df$source %in% sources,]
    
