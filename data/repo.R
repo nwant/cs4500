@@ -29,6 +29,7 @@ get.ciliates.1 <- function(config) {
 }
 
 get.all <- function(config) {
+  # get each data set and label their species classification
   arisa <- get.arisa(config)
   arisa$class <- "arisa"
   ciliates.1 <- get.ciliates.1(config)
@@ -43,9 +44,9 @@ get.all <- function(config) {
   
   # merge on date and source
   ciliates.1$datesource <- paste(ciliates.1$date, ciliates.1$source, sep=" ")
-  arisa$datesource <- paste(arisa$date, arisa$source, sep=" ")
-  merged.by.date <- merge(ciliates.1, arisa, by="datesource", all =T)
-  merged.by.date$datesource <- NULL
+  merged <- merge(ciliates.1, arisa, by=c("date", "source"), all =T)
+ 
+  merged$class[is.na(merged$class)] <- "arisa"
   
-  return(merged.by.date)
+  return(merged)
 }
