@@ -33,13 +33,16 @@ get.all <- function(config) {
   arisa <- get.arisa(config)
   arisa$class <- "arisa"
   ciliates.1 <- get.ciliates.1(config)
-  arisa$class <- "ciliates"
+  arisa$class <- "ciliates" 
+  arisa$x <- NULL
+  arisa$X <- NULL
    
   # stardardize each raw dataframe by removing unnecessary data columns and making 
   ciliates.1 <- rename(ciliates.1, c("Date" = "date", "site" = "source"))
   ciliates.1$TotalCellsPerLiter <- NULL
   ciliates.1$month <- NULL
   ciliates.1$year <- NULL
+  ciliates.1$x <- NULL
   ciliates.1$X <- NULL
   
   # merge on date and source
