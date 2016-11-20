@@ -63,9 +63,7 @@ get.all <- function(config) {
     
   # Get each data set and label their species classification
   arisa <- get.arisa(config)
-  arisa$class <- "arisa"
   ciliates.1 <- get.ciliates.1(config)
-  arisa$class <- "ciliates" 
   arisa$x <- NULL
   arisa$X <- NULL
    
@@ -77,12 +75,9 @@ get.all <- function(config) {
   ciliates.1$x <- NULL
   ciliates.1$X <- NULL
   
-  # Merge on date and source
+  # join using date and source
   ciliates.1$datesource <- paste(ciliates.1$date, ciliates.1$source, sep=" ")
   merged <- merge(ciliates.1, arisa, by=c("date", "source"), all =T)
  
-  # Clean out all N/A values
-  merged$class[is.na(merged$class)] <- "arisa"
-  
   return(merged)
 }
