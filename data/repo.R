@@ -1,16 +1,23 @@
+#------------------------------
+# repo.R
 # This file returns dataframes related to the CSV's that are imported into the functions
-
+##############################################################################################
 library("plyr")
 
-#calling should look like: dataframe <-get.name()
-
-
-####[get.arisa]##########################################################################
-# The get.arisa function takes in a configuration (see config.r) and creates a          #
-# dataframe from the arisa CSV file.  Then that dataframe has a column for classifiyng  #
-# each test-site added to it.  Next the dataframe has a column for each sample test date#
-# add to it.  Finally the function returns that dataframe.                              #
-#########################################################################################
+#============================
+# get.arisa
+# ---------
+# get a dataframe containing data from the ARISA dataset
+#
+# Inputs:
+#   config...a configuration object
+# 
+# Returns:
+#   a dataframe containing data from the ARISA dataset
+#   Rows correspond to a single date from which samples were taken.
+#   Columns include a formated date (date), site location (source), 
+#   and the each species of ARISA with its corresponding relative abundance
+#   determined for each corresponding date/site.
 get.arisa <- function(config) {
     
     # Creates a dataframe and stores all data from the arisa file into it
@@ -27,13 +34,20 @@ get.arisa <- function(config) {
 }
 
 
-####[get.ciliates.1]#####################################################################
-# The get.ciliates.1 function takes in a configuration and creates a dataframe from the #
-# first tab of the ciliates CSV file.  Then that dataframe removes all rows that are    #
-# empty or contain invalid values.  Next the dates are converted into dates that R can  #
-# use (mm-dd-yyyy) for the dataframe.  After that, the last column of the dataframe is   #
-# renamed for use by R.  Finally the function returns that dataframe.                   #
-#########################################################################################
+#============================
+# get.ciliates.1
+# ---------
+# get a dataframe containing data from the Ciliates (tab 1) dataset
+#
+# Inputs:
+#   config...a configuration object
+# 
+# Returns:
+#   a dataframe containing data from the Ciliates (tab 1) dataset.
+#   Rows correspond to a single date from which samples were taken.
+#   Columns include a formated date (date), site location (source), 
+#   total cells per litter obtained (TotalCellsPerLiter), and columns for each Ciliate species,
+#   of which contain the cells per litter for each species taken at a specific date 
 get.ciliates.1 <- function(config) {
     
     # Creates a dataframe and stores all data from the first tab of the ciliates file
@@ -51,14 +65,24 @@ get.ciliates.1 <- function(config) {
     return(ciliates.1)
 }
 
-####[get.all]############################################################################
-# The get.all function takes in a configuration file and creates a dataframe from both  #
-# the arisa CSV file and the first tab of the ciliates CSV file.  Then the dataframes   #
-# are labeled by their species classifications.  Next those dataframes clear out all    #
-# with invalid values.  After that, the dataframes are merged together on date and test #
-# site source.  Then that dataframe is cleaned once again this time looking for all     #
-# N/A's.  Finally the function returns the merged dataframe.                            #
-#########################################################################################
+
+
+#============================
+# get.all
+# ---------
+# get a combined dataframe containing data from both ARISA the Ciliates (tab 1) datasets
+#
+# Inputs:
+#   config...a configuration object
+# 
+# Returns:
+#   a dataframe containing data from the Ciliates (tab 1) dataset.
+#   Rows correspond to a single date from which samples were taken.
+#   Columns include a formated date (date), site location (source),
+#   and columns for each Ciliate species, of which contain the cells 
+#   per litter for each species taken at a specific date, and the each 
+#   species of ARISA with its corresponding relative abundance determined 
+#   for each corresponding date/site.
 get.all <- function(config) {
     
   # Get each data set and label their species classification
