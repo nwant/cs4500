@@ -13,14 +13,11 @@
 # time-slice in-between the min. date and max. date.  Next that dataframe has all unnessecary     #
 # columns removed.  Finally that dateframe is returned.                                           #
 ###################################################################################################
-filter.all.data <- function(df, sources, classes, date.min, date.max, blur=NULL, species="all") {
+filter.all.data <- function(df, sources, date.min, date.max, blur=NULL, species="all") {
   
   # Filter by site location (e.g. T1, T2, and/or T3)
   filtered <- df[df$source %in% sources,]
    
-  # Filter by species classification
-  filtered <- filtered[filtered$class %in% classes,]
-  
   # TODO: work with bluring
   
   # Get appropriate data time slice
