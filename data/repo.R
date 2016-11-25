@@ -22,7 +22,7 @@ library("zoo")
 get.arisa <- function(config) {
 
     # Creates a dataframe and stores all data from the arisa file into it
-    arisa <- read.csv(config[["arisa.fp"]], header = TRUE)
+    arisa <- read.csv(config$arisa.fp, header = TRUE)
 
     # Adds a column for classifying each testing site
     arisa$source <- substr(arisa$X, 1, 3)
@@ -52,7 +52,7 @@ get.arisa <- function(config) {
 get.ciliates.1 <- function(config) {
 
     # Creates a dataframe and stores all data from the first tab of the ciliates file
-    ciliates.1 <- read.csv(config[["ciliates.1.fp"]], header=TRUE)
+    ciliates.1 <- read.csv(config$ciliates.1.fp, header=TRUE)
 
     # Remove all empty/invalid rows
     ciliates.1 <- ciliates.1[!apply(is.na(ciliates.1) | ciliates.1 == "", 1, all), ]
@@ -107,24 +107,5 @@ get.all <- function(config) {
   # Interpolate NA values
   merged <- na.approx(merged)
 
-  # Calculate some constants
-  blur_stddev_sq <- config[['blur_stddev']] * config[['blur_stddev']]
-  gauss_factor <- 1 / sqrt(2 * pi * blur_stddev_sq)
-
-  # Run function over each row of data.
-  blurred <- t(sapply(1:nrow(merged), function(i, blur_rows) {
-    res <- merged[i,] * gauss_factor
-    for (j in 1:blur_rows) {
-      factor <- gauss_factor * exp(-j * j / (2 * blur_stddev_sq))
-      if (i - j > 0) {
-        res <- res + merged[i - j,] * factor
-      }
-      if (i + j <= nrow(merged)) {
-        res <- res + merged[i + j,] * factor
-      }
-    }
-    res
-  }, config[['blur_rows']]))
-
-  return(blurred)
+  return(merged)
 }
