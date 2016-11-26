@@ -3,6 +3,7 @@
 # This file returns dataframes related to the CSV's that are imported into the functions
 ##############################################################################################
 library("plyr")
+library("stringr")
 library("zoo")
 
 #============================
@@ -58,7 +59,14 @@ get.ciliates.1 <- function(config) {
     ciliates.1 <- ciliates.1[!apply(is.na(ciliates.1) | ciliates.1 == "", 1, all), ]
 
     # Convert date strings into R dates.
-    ciliates.1$Date <- as.Date(gsub("/", "-", ciliates.1$Date), "%m-%d-%y")
+    
+    # transform dates to mm-dd-yy format
+    ciliates.1$Date <- gsub("/", "-", ciliates.1$Date) # date, month and year all separated by hyphens
+    # make sure all years only have two digits (not concerned about y2k here)
+    ciliates.1$Date <- paste(str_match(ciliates.1$Date, "\\d+-\\d+-"), str_match(str_extract(ciliates.1$Date, "(/|-)2?0?\\d\\d$"), "\\d\\d$"), sep="")
+    # pad all single digits with trailing zero
+    
+    ciliates.1$Date <- as.Date(ciliates.1$Date, "%m-%d-%y")
 
     # Rename last column, which has odd characters that R can't handle
     colnames(ciliates.1)[length(ciliates.1)] <- "TotalCellsPerLiter"
@@ -94,8 +102,9 @@ get.all <- function(config) {
   
   # Get each data set and label their species classification
   arisa <- get.arisa(config)
-  ciliates.1 <- get.ciliates.1(config)
   arisa$X <- NULL
+  
+  ciliates.1 <- get.ciliates.1(config)
 
   # Stardardize each raw dataframe by removing unnecessary data columns and making
   ciliates.1 <- rename.column(ciliates.1, "Date", "date")
