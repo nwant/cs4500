@@ -118,8 +118,8 @@ get.all <- function(config) {
   # join using date and source
   merged <- merge(ciliates.1, arisa, by=c("date", "source"), all = T)
 
-  # Interpolate NA values
-  #merged <- na.approx(merged)
+  # replace all NA values to 0 (some of the dates don't match up soe)
+  merged[is.na(merged)] <- 0
 
   return(merged)
 }
