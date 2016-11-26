@@ -61,3 +61,23 @@ filter.all.data <- function(config, df, sources, date.min, date.max, blur=1, spe
 
   return(filtered)
 }
+
+
+#============================
+# get.species.names
+# ---------
+# get a list of all of the ARISA and Ciliates names
+#
+# Inputs:
+#   the dataframe object (as in from get.all.data from repo.R)
+#
+# Returns:
+#   a list of all of the species names
+get.species.names <- function(df) {
+  column.names <- colnames(df)
+  date.idx <- grep("date", column.names)
+  column.names <- column.names[-date.idx]
+  source.idx <- grep("source", column.names)
+  species.names <- column.names[-source.idx]
+  return(species.names)
+}
