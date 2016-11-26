@@ -85,27 +85,32 @@ get.ciliates.1 <- function(config) {
 #   species of ARISA with its corresponding relative abundance determined
 #   for each corresponding date/site.
 get.all <- function(config) {
-
+  rename.column <- function(df, old.name, new.name) {
+    cloned.df <- data.frame(df)
+    idx <- grep(old.name, colnames(df))
+    colnames(cloned.df)[idx] <- new.name
+    return(cloned.df)    
+  }
+  
   # Get each data set and label their species classification
   arisa <- get.arisa(config)
   ciliates.1 <- get.ciliates.1(config)
-  arisa$x <- NULL
   arisa$X <- NULL
 
   # Stardardize each raw dataframe by removing unnecessary data columns and making
-  ciliates.1 <- rename(ciliates.1, c("Date" = "date", "site" = "source"))
+  ciliates.1 <- rename.column(ciliates.1, "Date", "date")
+  ciliates.1 <- rename.column(ciliates.1, "site", "source")
+   
   ciliates.1$TotalCellsPerLiter <- NULL
   ciliates.1$month <- NULL
   ciliates.1$year <- NULL
-  ciliates.1$x <- NULL
   ciliates.1$X <- NULL
 
   # join using date and source
-  ciliates.1$datesource <- paste(ciliates.1$date, ciliates.1$source, sep=" ")
   merged <- merge(ciliates.1, arisa, by=c("date", "source"), all = T)
 
   # Interpolate NA values
-  merged <- na.approx(merged)
+  #merged <- na.approx(merged)
 
   return(merged)
 }
