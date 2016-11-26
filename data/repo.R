@@ -22,7 +22,7 @@ library("zoo")
 get.arisa <- function(config) {
 
     # Creates a dataframe and stores all data from the arisa file into it
-    arisa <- read.csv(config$arisa.fp, header = TRUE)
+    arisa <- read.csv(config$arisa.fp, header = TRUE, strip.white = TRUE)
 
     # Adds a column for classifying each testing site
     arisa$source <- substr(arisa$X, 1, 3)
@@ -52,7 +52,7 @@ get.arisa <- function(config) {
 get.ciliates.1 <- function(config) {
 
     # Creates a dataframe and stores all data from the first tab of the ciliates file
-    ciliates.1 <- read.csv(config$ciliates.1.fp, header=TRUE)
+    ciliates.1 <- read.csv(config$ciliates.1.fp, header=TRUE, strip.white =TRUE)
 
     # Remove all empty/invalid rows
     ciliates.1 <- ciliates.1[!apply(is.na(ciliates.1) | ciliates.1 == "", 1, all), ]
