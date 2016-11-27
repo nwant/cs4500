@@ -22,7 +22,6 @@ server <- function(input, output) {
   )
   
   output$corr_matrix <- renderPlot({
-    #input$runButton
     
     tt1 <- if(input$tt1) "TT1" else NULL
     tt2 <- if(input$tt2) "TT2" else NULL
@@ -31,11 +30,11 @@ server <- function(input, output) {
     date.min <- input$date_min
     date.max <- input$date_max
     
-    hist(c(1,2,3))
-     # 
-     # f <- filter.all.data(config, df, sources, date.min, date.max)
-     # M <- cor(f)
-     # corrplot(M, method="circle")
+    #hist(c(1,2,3))
+
+     f <- filter.all.data(config, df, sources, date.min, date.max, species = c("Colpodida", "Cyrtophorida"))
+     M <- cor(f)
+     corrplot(M, method="circle")
     
   })
 
