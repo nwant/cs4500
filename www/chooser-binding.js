@@ -6,6 +6,7 @@ function updateChooser(chooser) {
     chooser = $(chooser);
     var left = chooser.find("select.left");
     var right = chooser.find("select.right");
+    right.attr("id", "selectedSpecies");
     var leftArrow = chooser.find(".left-arrow");
     var rightArrow = chooser.find(".right-arrow");
     
