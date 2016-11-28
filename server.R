@@ -39,7 +39,7 @@ server <- function(input, output) {
 
     f <- filter.all.data(config, df, sources, date.min, date.max, species = input$species, only.species = T)
     M <- cor(f)
-    p <- corrplot.mixed(M)
+    p <- corrplot(M, order="alphabet")
     return(p)
   })
 
