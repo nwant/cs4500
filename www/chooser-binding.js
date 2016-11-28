@@ -1,3 +1,5 @@
+// most of this code was taken from shiny app examples found on github (https://github.com/rstudio/shiny-examples/tree/master/036-custom-input-control) for custom input control
+
 (function() {
 
 function updateChooser(chooser) {
@@ -17,7 +19,7 @@ function updateChooser(chooser) {
 function move(chooser, source, dest) {
     chooser = $(chooser);
     var selected = chooser.find(source).children("option:selected");
-    var dest = chooser.find(dest);
+    dest = chooser.find(dest);
     dest.children("option:selected").each(function(i, e) {e.selected = false;});
     dest.append(selected);
     updateChooser(chooser);
@@ -58,7 +60,7 @@ binding.getValue = function(el) {
   return {
     left: $.makeArray($(el).find("select.left option").map(function(i, e) { return e.value; })),
     right: $.makeArray($(el).find("select.right option").map(function(i, e) { return e.value; }))
-  }
+  };
 };
 
 binding.setValue = function(el, value) {

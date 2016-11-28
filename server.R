@@ -23,19 +23,21 @@ server <- function(input, output) {
   
   output$corr_matrix <- renderPlot({
     
-    tt1 <- if(input$tt1) "TT1" else NULL
-    tt2 <- if(input$tt2) "TT2" else NULL
-    tt3 <- if(input$tt3) "TT3" else NULL
+    tt1 <- if(input$tt1) "T1" else NULL
+    tt2 <- if(input$tt2) "T2" else NULL
+    tt3 <- if(input$tt3) "T3" else NULL
     sources <- c(tt1, tt2, tt3)
-    date.min <- input$date_min
-    date.max <- input$date_max
+    date.min <- as.Date(input$date_min)
+    date.max <- as.Date(input$date_max)
+    
     
     #hist(c(1,2,3))
 
-     f <- filter.all.data(config, df, sources, date.min, date.max, species = c("Colpodida", "Cyrtophorida"))
+     f <- filter.all.data(config, df, sources, date.min, date.max, species = c("Colpodida", "Cyrtophorida"), only.species = T)
+     #f <- filter.all.data(config, df, c(""))
      M <- cor(f)
-     corrplot(M, method="circle")
-    
+     p <- corrplot(M, method="circle")
+     return(p)
   })
 
 }

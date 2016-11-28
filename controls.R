@@ -1,3 +1,5 @@
+# most of this code was taken from shiny app examples found on github (https://github.com/rstudio/shiny-examples/tree/master/036-custom-input-control) for custom input control
+
 library("shiny")
 
 #============================
