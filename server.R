@@ -1,9 +1,6 @@
 source("./config.R")
 source("./data/repo.R")
 source("./data/filter.R")
-source("./plot/ciliates.R")
-source("./plot/arisa.R")
-# get the configuration named list and data frames from csvs
 library("corrplot")
 library("shiny")
 
@@ -27,6 +24,7 @@ server <- function(input, output) {
     selectInput("species", "Species", species, multiple = TRUE)
   })
   
+  # initialize species to include at least 2 species
   output$corr_matrix <- renderPlot({
     
     tt1 <- if(input$tt1) "T1" else NULL

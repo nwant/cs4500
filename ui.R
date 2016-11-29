@@ -1,4 +1,3 @@
-source("./controls.R")
 source("./config.R")
 source("./data/repo.R")
 source("./data/filter.R")
@@ -13,7 +12,6 @@ ui <- bootstrapPage(
   fluidPage(
     fluidRow(
       column(6, 
-             #selectInput("speciesSelect", "Species", species, multiple = TRUE)),
              uiOutput("speciesSelect")), 
       column(3, 
              checkboxInput(inputId = "tt1", label = strong("Show T1"), value = TRUE),
