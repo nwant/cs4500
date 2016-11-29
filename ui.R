@@ -1,12 +1,4 @@
-source("./config.R")
-source("./data/repo.R")
-source("./data/filter.R")
 library(shiny)
-
-config <- get.config()
-df <- get.all(config)
-species <- get.species.names(df)
-df <- NULL
 
 ui <- bootstrapPage(
   fluidPage(
