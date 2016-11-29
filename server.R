@@ -4,7 +4,6 @@ source("./data/filter.R")
 library("corrplot")
 library("shiny")
 
-
 server <- function(input, output) {
   observeEvent(input$tt1, {
     message1 = "hello"
@@ -21,7 +20,7 @@ server <- function(input, output) {
    })
   
   output$speciesSelect <- renderUI({
-    selectInput("species", "Species", species, multiple = TRUE)
+    selectInput("species", "Species", species, multiple = TRUE, selected=species[0:2])
   })
   
   # initialize species to include at least 2 species
@@ -40,7 +39,6 @@ server <- function(input, output) {
     p <- corrplot(M, order="alphabet")
     return(p)
   })
-
 }
 
 
