@@ -38,62 +38,53 @@ get.mock.df <- function() {
 
 context("filter by source")
 
-#-----------------
-# run.source.test
-#------------------
-# run a test_that expectation in regards to filtering by source
-#
-# Inputs:
-#   sources...a named list with source strings (i.e. "T1", "T2", and/or "T3")
-#   expectation...a logical statement to be used to extract a subset of the mock dataframe. This
-#     will be used on the source column of the mock dataframe
-run.source.test <- function(sources, expectation) {
+test_that("filter.all.data filters sites for site T1", {
   config <- get.config()
   df <- get.mock.df()
-  f <- filter.all.data(config, df, sources, date.min, date.max)
-  expect_equivalent(f$source, df$source[expectation])
-}
-
-test_that("filter.all.data filters sites for site T1", {
-  run.source.test(
-    sources = c("T1"),
-    expectation = df$source == "T1")
+  f <- filter.all.data(config, df, c("T1"), date.min, date.max)
+  expect_equivalent(f$source, df$source[df$source == "T1"])
 })
 
 test_that("filter.all.data filters sites for site T2", {
-  run.source.test(
-    sources = c("T2"),
-    expectation = df$source == "T2")
+  config <- get.config()
+  df <- get.mock.df()
+  f <- filter.all.data(config, df, c("T2"), date.min, date.max)
+  expect_equivalent(f$source, df$source[df$source == "T2"])
 })
 
 test_that("filter.all.data filters sites for site T3", {
-  run.source.test(
-    sources = c("T3"),
-    expectation = df$source == "T3")
+  config <- get.config()
+  df <- get.mock.df()
+  f <- filter.all.data(config, df, c("T3"), date.min, date.max)
+  expect_equivalent(f$source, df$source[df$source == "T3"])
 })
 
 test_that("filter.all.data filters by sites for T1 or T2", {
-  run.source.test(
-    sources = c("T1", "T2"),
-    expectation = df$source == "T1" | df$source == "T2")
+  config <- get.config()
+  df <- get.mock.df()
+  f <- filter.all.data(config, df, c("T1", "T2"), date.min, date.max)
+  expect_equivalent(f$source, df$source[df$source == "T1" | df$source == "T2"])
 })
 
 test_that("filter.all.data filters by sites for T2 or T3", {
-  run.source.test(
-    sources = c("T2", "T3"),
-    expectation = df$source == "T2" | df$source == "T3")
+  config <- get.config()
+  df <- get.mock.df()
+  f <- filter.all.data(config, df, c("T2", "T3"), date.min, date.max)
+  expect_equivalent(f$source, df$source[df$source == "T2" | df$source == "T3"])
 })
 
 test_that("filter.all.data gets all for site T1 or T3", {
-  run.source.test(
-    sources = c("T1", "T3"),
-    expectation = df$source == "T1" | df$source == "T3")
+  config <- get.config()
+  df <- get.mock.df()
+  f <- filter.all.data(config, df, c("T1", "T3"), date.min, date.max)
+  expect_equivalent(f$source, df$source[df$source == "T1" | df$source == "T3"])
 })
 
 test_that("filter.all.data filters by site T1, T2, or T3", {
-  run.source.test(
-    sources = c("T1", "T2", "T3"),
-    expectation = df$source == "T1" | df$source == "T2" | df$source == "T3")
+  config <- get.config()
+  df <- get.mock.df()
+  f <- filter.all.data(config, df, c("T1", "T2", "T3"), date.min, date.max)
+  expect_equivalent(f$source, df$source[df$source == "T1" | df$source == "T2" | df$source == "T3"])
 })
 
 
