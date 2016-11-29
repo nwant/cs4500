@@ -10,7 +10,6 @@ species <- get.species.names(df)
 df <- NULL
 
 ui <- bootstrapPage(
-  includeScript("www/handlers.js"),
   fluidPage(
     fluidRow(
       column(6, 
