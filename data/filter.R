@@ -3,21 +3,24 @@
 #         2. species classification
 #         3. min. and max date
 
-#Calling should look like: ???
-
 
 # Standard erf and its inverse (https://en.wikipedia.org/wiki/Error_function):
 erf <- function(x) 2 * pnorm(x * sqrt(2)) - 1
 erfinv <- function (x) qnorm((1 + x) / 2) / sqrt(2)
 
-
-####[filter.all.data]##############################################################################
-# This function takes in (a dataframe, a test-ste, a species classification, minimum and maximum  #
-# for dates) as parameters.  Then it filters the dataframe by test-site.  Next that dataframe is  #
-# filtered by filtered by species classification.  After that, the dataframe is filtered by the   #
-# time-slice in-between the min. date and max. date.  Next that dataframe has all unnessecary     #
-# columns removed.  Finally that dateframe is returned.                                           #
-###################################################################################################
+#====================
+# filter.all.data
+#-----------  
+# Filters Arisa and ciliates by location and time
+# 
+# Inputs:
+#   * Arisa and ciliates dataframes
+#   * Minimum and maximum dates for time slice
+#   * Location of the testing site  
+#
+# Returns:
+#   * Filtered dataframe with only the location and the time slice asked for
+#  
 filter.all.data <- function(config, df, sources, date.min, date.max, blur=1, species="all", only.species=FALSE) {
   # Calculate number of rows above and below each row needed to get the blur error below the config value.
   # This is the inverse gaussian function (https://en.wikipedia.org/wiki/Normal_distribution#Quantile_function)
@@ -68,13 +71,14 @@ filter.all.data <- function(config, df, sources, date.min, date.max, blur=1, spe
 #============================
 # get.species.names
 # ---------
-# get a list of all of the ARISA and Ciliates names
+# Get a list of all of the ARISA and Ciliates names
 #
 # Inputs:
-#   the dataframe object (as in from get.all.data from repo.R)
+#   * The dataframe object (as in from get.all.data from repo.R)
 #
 # Returns:
-#   a list of all of the species names
+#   * A list of all of the species names
+#  
 get.species.names <- function(df) {
   column.names <- colnames(df)
   date.idx <- grep("date", column.names)
