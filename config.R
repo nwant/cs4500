@@ -1,3 +1,7 @@
+# This file configures files and ...
+#
+# todo: add comments explaining function 
+#
 get.config <- function() {
     config <- new.env()
     config$R.repos = "http://cran.us.r-project.org"
