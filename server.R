@@ -1,9 +1,23 @@
+# This file creates a sidebar for use in the UI (User Interface) which is used for:
+#
+#     1. Choosing Arisa or ciliates to view
+#     2. Choosing which test site to view
+#     3. Choosing the time slice to view
+#
+
 source("./config.R")
-source("./data/repo.R")
+source("./data/repo.R")                 
 source("./data/filter.R")
 library("corrplot")
 library("shiny")
 
+
+#=================
+# server
+#--------
+# Controls all input and output to and from the UI
+#
+#
 server <- function(input, output) {
   observeEvent(input$tt1, {
     message1 = "hello"
