@@ -1,6 +1,6 @@
-# This file configures files and ...
+# This file configures files and filepaths 
 #
-# todo: add comments explaining function 
+# Use this file for filepath manipulation
 #
 get.config <- function() {
     config <- new.env()
