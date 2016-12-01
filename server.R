@@ -42,12 +42,12 @@ server <- function(input, output) {
     # Filter the data from the input values and produce a correlation matrix based on those inputs
     f <- filter.all.data(config, df, sources, date.min, date.max, species = input$species, only.species = T)
 
-    # set server side validation
+    # server side validation for user input
     validate(
       need(length(input$species) >= 2, "You must select at least 2 species!"), # corrlation matrix will only work with at least 2 species to compare
       need(input$tt1 | input$tt2 | input$tt3, "At least one site must be selected!"), # one site must always be selected or # of rows in dataframe would be 0.
       need(date.min <= date.max, "The minimum date must be less than the maximum date selected"),
-      need(nrow(f) > 1, "There must be at least one row matching the filter you selected")
+      need(nrow(f) > 1, "Not enough data to compare. Please expand date time slice by increasing the End Date")
     )
 
     M <- cor(f)
