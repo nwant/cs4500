@@ -13,32 +13,25 @@ library("shiny")
 
 
 #=================
-# server
+# server 
 #--------
 # Controls all input and output to and from the UI
-#
+# 
+#     * Stardard convention for creating a shiny server for shiny app 
+#     * Auto updates the UI as new inputs are set through the shiny app
 #
 server <- function(input, output) {
-  observeEvent(input$tt1, {
-    message1 = "hello"
-    cat("\nmessage recieved!")
-  })
   config <- get.config()
   df <- get.all(config)
   species <- get.species.names(df)
   
-   outVar <- reactive({
-     selected.species <- all.vars(parse(text = input$species))
-     selected.species <- as.list(selected.species)
-     return (selected.species)
-   })
-  
+  # Renders species selection in the UI (multi-select)
   output$speciesSelect <- renderUI({
     selectInput("species", "Species", species, multiple = TRUE, selected=species[0:2])
     
   })
   
-  # initialize species to include at least 2 species
+  # Initialize species to include at least 2 species
   output$corr_matrix <- renderPlot({
     
     tt1 <- if(input$tt1) "T1" else NULL
@@ -56,6 +49,7 @@ server <- function(input, output) {
       need(date.min <= date.max, "The minimum date must be less than the maximum date selected") 
     )
 
+    # Filter the data from the input values and produce a correlation matrix based on those inputs   
     f <- filter.all.data(config, df, sources, date.min, date.max, species = input$species, only.species = T)
     M <- cor(f)
     p <- corrplot(M, order="alphabet")
