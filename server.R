@@ -28,7 +28,7 @@ server <- function(input, output) {
     # set a multiple select picklist that initializes with the first 2 species preselected
     selectInput("species", "Species", species, multiple = TRUE, selected=species[0:2])
   })
-
+  
   # initialize species to include at least 2 species
   output$corr_matrix <- renderPlot({
 
@@ -52,7 +52,7 @@ server <- function(input, output) {
     )
 
     M <- cor(f)
-    p <- corrplot(M, order="alphabet", na.label = "-")
+    p <- corrplot(M, order="alphabet", na.label = config$na_label)
     return(p)
   })
 }
