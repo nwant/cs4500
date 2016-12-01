@@ -19,19 +19,9 @@ library("shiny")
 #
 #
 server <- function(input, output) {
-  observeEvent(input$tt1, {
-    message1 = "hello"
-    cat("\nmessage recieved!")
-  })
   config <- get.config()
   df <- get.all(config)
   species <- get.species.names(df)
-
-   outVar <- reactive({
-     selected.species <- all.vars(parse(text = input$species))
-     selected.species <- as.list(selected.species)
-     return (selected.species)
-   })
 
   output$speciesSelect <- renderUI({
     selectInput("species", "Species", species, multiple = TRUE, selected=species[0:2])
