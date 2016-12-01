@@ -18,14 +18,15 @@ library("shiny")
 # Controls all input and output to and from the UI
 #
 #
+config <- get.config()
+df <- get.all(config)
+species <- get.species.names(df)
+
 server <- function(input, output) {
-  config <- get.config()
-  df <- get.all(config)
-  species <- get.species.names(df)
 
   output$speciesSelect <- renderUI({
+    # set a multiple select picklist that initializes with the first 2 species preselected
     selectInput("species", "Species", species, multiple = TRUE, selected=species[0:2])
-
   })
 
   # initialize species to include at least 2 species
@@ -55,7 +56,3 @@ server <- function(input, output) {
     return(p)
   })
 }
-
-
-
-

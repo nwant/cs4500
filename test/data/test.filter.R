@@ -125,7 +125,6 @@ test_that("filter.all.data filters", {
 
 context("filter by species")
 
-
 test_that("filter.all.data provides all species when species is set to 'all'", {
   config <- get.config()
   df <- get.mock.df()
