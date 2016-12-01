@@ -115,7 +115,7 @@ test_that("filter.all.data filters by site T1, T2, or T3", {
 #------filter by date--------
 context("filter by date")
 
-# Creates a df from the mock data from the dates 
+# Creates a df from the mock data from the dates inputed by the user
 test_that("filter.all.data filters", {
   config <- get.config()
   df <- get.mock.df()
@@ -123,6 +123,7 @@ test_that("filter.all.data filters", {
   expect_equivalent(f$date, df$date[df$date >= date.min & df$date <= date.max])
 })
 
+#------filter by species-------
 context("filter by species")
 
 test_that("filter.all.data provides all species when species is set to 'all'", {
