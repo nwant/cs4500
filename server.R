@@ -44,10 +44,10 @@ server <- function(input, output) {
 
     # server side validation for user input
     validate(
-      need(length(input$species) >= 2, "You must select at least 2 species!"), # corrlation matrix will only work with at least 2 species to compare
-      need(input$tt1 | input$tt2 | input$tt3, "At least one site must be selected!"), # one site must always be selected or # of rows in dataframe would be 0.
-      need(date.min <= date.max, "The minimum date must be less than the maximum date selected"),
-      need(nrow(f) > 1, "Not enough data to compare. Please expand date time slice by increasing the End Date")
+      need(length(input$species) >= 2, "You must select at least 2 species!"), # are at least 2 species selected? (corrlation matrix will only work with at least 2 species to compare)
+      need(input$tt1 | input$tt2 | input$tt3, "At least one site must be selected!"), # is at least one site (T1, T2, and/or, T3) selected?
+      need(date.min <= date.max, "The minimum date must be less than the maximum date selected"), # is the min date <= to the max date
+      need(nrow(f) > 1, "Not enough data to compare. Please expand date time slice by increasing the End Date") # does the dataframe contain more than one row?
     )
 
     M <- cor(f)
