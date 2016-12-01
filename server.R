@@ -52,7 +52,7 @@ server <- function(input, output) {
     )
 
     M <- cor(f)
-    p <- corrplot(M, order="alphabet")
+    p <- corrplot(M, order="alphabet", na.label = "-")
     return(p)
   })
 }
