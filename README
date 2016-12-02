@@ -1,0 +1,59 @@
+--------
+cs4500
+--------
+
+This file is an outline of everything inside of the cs4500 master folder.  The contents of each folder will be described here as well as basic information regarding the files.  If you want more detailed information involving the contents of the files, comments can be found inside the files themselves.
+
+--------
+main
+--------
+Contains the files for client and server, as well as the configuration object to configure the application.
+
+Files inside of main:
+•	config.R
+•	server.R
+•	server.R.orig
+•	ui.R
+
+These files control the server and client, as well as produce the user-interface(ui) and the configuration for the application.
+
+------
+data
+------
+
+Contains files that affect the raw data source files
+
+Files inside of data:
+•	filter.r
+•	repo.r
+
+These files with functions that work, access, and transform data from the files in source.
+
+-----------
+source
+-----------
+
+Contains the raw source files that contain the data from the research
+
+Files inside of source:
+•	ARISA.CSV
+•	CILIATES_1.CSV
+•	CILIATES_2.CSV
+•	Ciliates TL 2008.xls
+
+These files are the raw source data files.  
+
+*/WARNING/* - although a .xls(excel) file exist inside of this folder all files should be saved as .csv for use by our functions.
+
+--------------
+test/data
+--------------
+
+Contains files that conduct unit test on the functions inside of the project
+
+Files inside of test/data:
+•	test.filter.r
+These files mirror the main file structure of the project.  All test files are named 
+test.<regular file name>.R
+ where <regular file name> would be the name of the file that the test file is testing. 
+e.g. : test.filter.R would be the test file for unit test pertaining to filter.R file
