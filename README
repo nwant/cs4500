@@ -13,12 +13,17 @@ Members:
 - Joshua Veal-Briscoe
 - Joel Walker
 
+
 Background:
 -----------
 This goal of this project was to design an application that would help Dr. Michael Lemke and his collegues better understand some of the research data compiled from the Emiquon Project over the course of several years.
 
 Dr. Lemke provided several datasets for our team to reference and use in our application. Each dataset provided contained measurements from samples taken from 3 different sites and periodic dates (approximately every 1-2 weeks) over the course of several years.
 
+Goals:
+-------
+Our goal was to deliver a useful tool that would help Dr. Lemke and his collegues gain additional insight into the data gathered via the Emiquon restoration project. We chose to focus on the correlations that Dr. Lemke believed would produce the most interesting results given his current understanding of the data as it stands today: the relationship between microbial data extracted from using ARISA, and the microbials' most likely preditor: ciliates. 
+We also wanted to make sure Dr. Lemke would be able to share this application easily with his collegues. Therefore, we chose to use a Web framework that could easily be deployed on a centralized server or cloud service to share. However, we did not want to restrict him with this sort of setup. Therefore, our solution can also be run locally on any machine that can run R.
 
 ================================
 File Stucture
@@ -39,3 +44,8 @@ File Stucture
 * `install.R` - Stand-alone script that installs the necessary R packages.
 * `run.R` - Starts the server and opens a browswer window for the client.
 * `deploy.R` - Uploads the application to https://shinyapps.io.
+
+============================================
+Design Rationale
+=============================================
+In order to 
