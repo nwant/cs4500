@@ -2,8 +2,15 @@
 erf <- function(x) 2 * pnorm(x * sqrt(2)) - 1
 erfinv <- function (x) qnorm((1 + x) / 2) / sqrt(2)
 
+cache <- new.env()
+
 filter.blur <- function(config, df, blur) {
   if (blur > 0.001) {
+    index <- as.character(blur)
+    if (exists(index, cache, inherits=FALSE)) {
+      return(cache[[index]])
+    }
+
     time_1 <- proc.time()
 
     # Calculate number of rows above and below each row needed to get the blur error below the config value.
@@ -44,6 +51,10 @@ filter.blur <- function(config, df, blur) {
     time_4 <- proc.time()
     print("Blur concatenation:")
     print(time_4 - time_3)
+
+    print(dim(df))
+
+    cache[[index]] <- df
   }
 
   return(df)
