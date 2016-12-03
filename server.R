@@ -8,6 +8,7 @@
 source("./config.R")
 source("./data/repo.R")
 source("./data/filter.R")
+source("./data/blur.R")
 library("corrplot")
 library("shiny")
 
@@ -39,8 +40,11 @@ server <- function(input, output) {
     date.min <- as.Date(input$date_min)
     date.max <- as.Date(input$date_max)
 
+    # Blur data
+    b <- filter.blur(config, df, input$blur)
+
     # Filter the data from the input values and produce a correlation matrix based on those inputs
-    f <- filter.all.data(config, df, sources, date.min, date.max, blur = input$blur, species = input$species, only.species = T)
+    f <- filter.all.data(config, b, sources, date.min, date.max, species = input$species, only.species = T)
 
     # server side validation for user input
     validate(
