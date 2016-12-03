@@ -11,33 +11,23 @@ source("./data/filter.R")
 library("corrplot")
 library("shiny")
 
-
 #=================
 # server
 #--------
 # Controls all input and output to and from the UI
 #
 #
-server <- function(input, output) {
-  observeEvent(input$tt1, {
-    message1 = "hello"
-    cat("\nmessage recieved!")
-  })
-  config <- get.config()
-  df <- get.all(config)
-  species <- get.species.names(df)
+config <- get.config()
+df <- get.all(config)
+species <- get.species.names(df)
 
-   outVar <- reactive({
-     selected.species <- all.vars(parse(text = input$species))
-     selected.species <- as.list(selected.species)
-     return (selected.species)
-   })
+server <- function(input, output) {
 
   output$speciesSelect <- renderUI({
+    # set a multiple select picklist that initializes with the first 2 species preselected
     selectInput("species", "Species", species, multiple = TRUE, selected=species[0:2])
-
   })
-
+  
   # initialize species to include at least 2 species
   output$corr_matrix <- renderPlot({
 
@@ -52,16 +42,16 @@ server <- function(input, output) {
     # Filter the data from the input values and produce a correlation matrix based on those inputs
     f <- filter.all.data(config, df, sources, date.min, date.max, species = input$species, only.species = T)
 
-    # set server side validation
+    # server side validation for user input
     validate(
-      need(length(input$species) >= 2, "You must select at least 2 species!"), # corrlation matrix will only work with at least 2 species to compare
-      need(input$tt1 | input$tt2 | input$tt3, "At least one site must be selected!"), # one site must always be selected or # of rows in dataframe would be 0.
-      need(date.min <= date.max, "The minimum date must be less than the maximum date selected"),
-      need(nrow(f) > 1, "There must be at least one row matching the filter you selected")
+      need(length(input$species) >= 2, "You must select at least 2 species!"), # are at least 2 species selected? (corrlation matrix will only work with at least 2 species to compare)
+      need(input$tt1 | input$tt2 | input$tt3, "At least one site must be selected!"), # is at least one site (T1, T2, and/or, T3) selected?
+      need(date.min <= date.max, "The minimum date must be less than the maximum date selected"), # is the min date <= to the max date
+      need(nrow(f) > 1, "Not enough data to compare. Please expand date time slice by increasing the End Date") # does the dataframe contain more than one row?
     )
 
     M <- cor(f)
-    p <- corrplot(M, order="alphabet")
+    p <- corrplot(M, order="alphabet", na.label = config$na_label)
     return(p)
   })
 }

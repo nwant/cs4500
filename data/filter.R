@@ -4,8 +4,8 @@
 #         2. species classification
 #         3. min. and max date
 #
-
 # Standard erf and its inverse (https://en.wikipedia.org/wiki/Error_function):
+library("stringdist")
 erf <- function(x) 2 * pnorm(x * sqrt(2)) - 1
 erfinv <- function (x) qnorm((1 + x) / 2) / sqrt(2)
 
@@ -58,8 +58,9 @@ filter.all.data <- function(config, df, sources, date.min, date.max, blur=1, spe
   filtered <- filtered[filtered$date <= date.max,]
 
   # Remove all columns from the dataframe except the columns for requested species
-  if (!grepl(species, "all")) {
-    filtered <- filtered[colnames(filtered) %in% c(c, species, c("date", "source"), recursive=T)]
+  if (length(species) >= 1)
+    if (stringdist(species[1], "all") != 0) { # should we be getting all species (default)?
+    filtered <- filtered[colnames(filtered) %in% c(c, species, c("date", "source"), recursive=T)] # no, filter by species
   }
 
   if (only.species) {
