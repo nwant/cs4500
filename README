@@ -1,5 +1,3 @@
-
-
 ===============================
 Project Overview
 ===============================
@@ -7,13 +5,13 @@ Class Info:
 ------------
 CMP SCI 4500: 2016 Fall Semester
 
-Members: 
+Members:
 ---------
-Quinyang Hu
-Taylor Scott
-Joshua Veal-Briscoe
-Joel Walker
-Nathan Want
+- Nathan Want
+- Quinyang Hu
+- Taylor Scott
+- Joshua Veal-Briscoe
+- Joel Walker
 
 Background:
 -----------
@@ -22,66 +20,22 @@ This goal of this project was to design an application that would help Dr. Micha
 Dr. Lemke provided several datasets for our team to reference and use in our application. Each dataset provided contained measurements from samples taken from 3 different sites and periodic dates (approximately every 1-2 weeks) over the course of several years.
 
 
-
 ================================
 File Stucture
-===============================
---------
-cs4500
---------
+================================
 
-This file is an outline of everything inside of the cs4500 master folder.  The contents of each folder will be described here as well as basic information regarding the files.  If you want more detailed information involving the contents of the files, comments can be found inside the files themselves.
-
---------
-main
---------
-Contains the files for client and server, as well as the configuration object to configure the application.
-
-Files inside of main:
-•	config.R
-•	server.R
-•	server.R.orig
-•	ui.R
-
-These files control the server and client, as well as produce the user-interface(ui) and the configuration for the application.
-
-------
-data
-------
-
-Contains files that affect the raw data source files
-
-Files inside of data:
-•	filter.r
-•	repo.r
-
-These files with functions that work, access, and transform data from the files in source.
-
------------
-source
------------
-
-Contains the raw source files that contain the data from the research
-
-Files inside of source:
-•	ARISA.CSV
-•	CILIATES_1.CSV
-•	CILIATES_2.CSV
-•	Ciliates TL 2008.xls
-
-These files are the raw source data files.  
-
-*/WARNING/* - although a .xls(excel) file exist inside of this folder all files should be saved as .csv for use by our functions.
-
---------------
-test/data
---------------
-
-Contains files that conduct unit test on the functions inside of the project
-
-Files inside of test/data:
-•	test.filter.r
-These files mirror the main file structure of the project.  All test files are named 
-test.<regular file name>.R
- where <regular file name> would be the name of the file that the test file is testing. 
-e.g. : test.filter.R would be the test file for unit test pertaining to filter.R file
+* `data/` - Defines functions that handle data processing.
+* `data/repo.R` - Defines `get.all`, which loads the arisa and ciliate data into a data.table.
+* `data/blur.R` - Defines `filter.blur`, which adds each row into adjacent rows, weighted by the gaussian function. This shows the correlation resulting from effects that may have a delay.
+* `data/filter.R` - Defines `filter.all.data`, which removes rows from the data.table based on the input parameters.
+* `documentation/` - Documentation for installing, running, deploying, and using the program.
+* `source/` - Holds source csv files.
+* `source/ARISA.CSV` - Arisa data.
+* `source/CILIATES_1.CSV`, `source/CILIATES_2.CSV` - Ciliates data.
+* `test/data/` - Defines unit tests. Each test should test exactly one source file, named `test.<source_file_name>`.
+* `config.R` - Configuration file. Holds parameters for tuning the visualization.
+* `ui.R` - Defines the user interface. Controls are configured in this file.
+* `server.R` - Main endpoint that calls repo, blur, and filter.
+* `install.R` - Stand-alone script that installs the necessary R packages.
+* `run.R` - Starts the server and opens a browswer window for the client.
+* `deploy.R` - Uploads the application to https://shinyapps.io.

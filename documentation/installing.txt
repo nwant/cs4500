@@ -15,3 +15,7 @@ Getting the code:
 Running:
 --------
 1. Run `run.R` using `Rscript`
+
+Deploying to ShinyApps.io:
+--------------------------
+1. Run `deploy.R` using `Rscript`
