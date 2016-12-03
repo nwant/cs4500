@@ -1,3 +1,31 @@
+
+
+===============================
+Project Overview
+===============================
+Class Info:
+------------
+CMP SCI 4500: 2016 Fall Semester
+
+Members: 
+---------
+Quinyang Hu
+Taylor Scott
+Joshua Veal-Briscoe
+Joel Walker
+Nathan Want
+
+Background:
+-----------
+This goal of this project was to design an application that would help Dr. Michael Lemke and his collegues better understand some of the research data compiled from the Emiquon Project over the course of several years.
+
+Dr. Lemke provided several datasets for our team to reference and use in our application. Each dataset provided contained measurements from samples taken from 3 different sites and periodic dates (approximately every 1-2 weeks) over the course of several years.
+
+
+
+================================
+File Stucture
+===============================
 --------
 cs4500
 --------
