@@ -1,0 +1,17 @@
+# Bacteria Visualizer Installation
+
+Getting R:
+----------
+1. Go to any R download mirror, for example https://ftp.ussg.iu.edu/CRAN/
+2. Go through the installation instructions.
+
+Getting the code:
+-----------------
+1. Go to https://github.com/nwant/cs4500
+2. If you do not have access to the repository, email nwant01@gmail.com for access
+3. Click on "Clone or Download", then click "Download ZIP", and unzip it
+4. Run `install.R` using `Rscript`
+
+Running:
+--------
+1. Run `run.R` using `Rscript`
