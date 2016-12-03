@@ -65,7 +65,3 @@ server <- function(input, output) {
     return(p)
   })
 }
-
-
-
-
