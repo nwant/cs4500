@@ -27,7 +27,7 @@ server <- function(input, output) {
     # set a multiple select picklist that initializes with the first 2 species preselected
     selectInput("species", "Species", species, multiple = TRUE, selected=species[0:2])
   })
-  
+
   # initialize species to include at least 2 species
   output$corr_matrix <- renderPlot({
 
@@ -40,7 +40,7 @@ server <- function(input, output) {
     date.max <- as.Date(input$date_max)
 
     # Filter the data from the input values and produce a correlation matrix based on those inputs
-    f <- filter.all.data(config, df, sources, date.min, date.max, species = input$species, only.species = T)
+    f <- filter.all.data(config, df, sources, date.min, date.max, blur = input$blur, species = input$species, only.species = T)
 
     # server side validation for user input
     validate(
