@@ -4,8 +4,10 @@
 #         2. species classification
 #         3. min. and max date
 #
-# Standard erf and its inverse (https://en.wikipedia.org/wiki/Error_function):
+
 library("stringdist")
+
+# Standard erf and its inverse (https://en.wikipedia.org/wiki/Error_function):
 erf <- function(x) 2 * pnorm(x * sqrt(2)) - 1
 erfinv <- function (x) qnorm((1 + x) / 2) / sqrt(2)
 
@@ -23,6 +25,8 @@ erfinv <- function (x) qnorm((1 + x) / 2) / sqrt(2)
 #   * Filtered dataframe with only the location and the time slice asked for
 #
 filter.all.data <- function(config, df, sources, date.min, date.max, blur=1, species="all", only.species=FALSE) {
+  time_1 <- proc.time()
+
   # Calculate number of rows above and below each row needed to get the blur error below the config value.
   # This is the inverse gaussian function (https://en.wikipedia.org/wiki/Normal_distribution#Quantile_function)
   blur_rows <- blur * sqrt(2) * erfinv(2 * config$blur_max_error - 1)
@@ -40,22 +44,42 @@ filter.all.data <- function(config, df, sources, date.min, date.max, blur=1, spe
   df <- df[, -(1:2)]
 
   zero = df[1,] * 0
-  shift_up <- function(k) rbind(tail(df, -k), last[rep(1, k), ])
-  shift_down <- function(k) rbind(last[rep(1, k), ], head(df, -k))
+  shift_up <- function(k) rbind(tail(df, -k), zero[rep(1, k), ])
+  shift_down <- function(k) rbind(zero[rep(1, k), ], head(df, -k))
+
+  time_2 <- proc.time()
+  print("Setup:")
+  print(time_2 - time_1)
 
   ups = Reduce('+', lapply(1:blur_rows, function(x) shift_up(x) * gauss_window(x)))
   center = df * gauss_window(0)
   downs = Reduce('+', lapply(1:blur_rows, function(x) shift_down(x) * gauss_window(x)))
 
+  time_3 <- proc.time()
+  print("Blur reduction:")
+  print(time_3 - time_2)
+
   df <- ups + center + downs
   df <- cbind(date = col_date, source = col_source, df)
+
+  time_4 <- proc.time()
+  print("Blur concatenation:")
+  print(time_4 - time_3)
 
   # Filter by site location (e.g. T1, T2, and/or T3)
   filtered <- df[df$source %in% sources,]
 
+  time_5 <- proc.time()
+  print("Filtering by site location:")
+  print(time_5 - time_4)
+
   # Get appropriate data time slice
   filtered <- filtered[filtered$date >= date.min,]
   filtered <- filtered[filtered$date <= date.max,]
+
+  time_6 <- proc.time()
+  print("Filtering by time:")
+  print(time_6 - time_5)
 
   # Remove all columns from the dataframe except the columns for requested species
   if (length(species) >= 1)
@@ -67,6 +91,10 @@ filter.all.data <- function(config, df, sources, date.min, date.max, blur=1, spe
     filtered$date <- NULL
     filtered$source <- NULL
   }
+
+  time_7 <- proc.time()
+  print("Filtering by species:")
+  print(time_7 - time_6)
 
   return(filtered)
 }
