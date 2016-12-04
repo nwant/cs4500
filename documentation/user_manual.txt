@@ -1,0 +1,25 @@
+# Bacteria Visualizer User Manual
+
+Accessing app
+-------------
+After you start the server, you should see a line that looks something like this: `Listening on http://127.0.0.1:6050`. Copy the url into your browser. The application should look something like this:
+
+![Initial application](initial.png)
+
+Exploring data correlations
+---------------------------
+
+There are quite a few things you can do to find and explore correlations in your data. The first thing you'll want to do is add species. Initially, only "Colphodia" and "Cyrtophorida" are selected. Click on the "Species" input and then click on an item in the dropdown to add it to the correlation matrix. Adding each species will add a row and a column.
+
+But what do the circles represent? Each grid cell represents a correlation. The correlation coefficient is represented by the circle size. The regression slope is represented by the circle color. The color legend is on the right side of the graph.
+
+How does this apply to bacteria? You want to be able to see relationships in the relative abundances of arisa and ciliates. You want to see species that change in conjunction with other species. If you add "Colpodida" and "X300" to the grid, you'll see a large light blue circle. This means that when Colpodida changes, X300 tends to change as well, and vice-versa.
+
+Exploring filtering options
+---------------------------
+
+You can also gain insights into your data by modifying the filtering options. The "Show T1/T2/T3" checkboxes will enable and disable observations from their respective sources. This can be useful to find differences in each location.
+
+The "Blur factor" is useful for finding correlations between species that may not happen simultaneously. For example, an increase in a predator population may cause a decrease in a prey population, but only a few days later. The blur functionality will let you see correlations between these types of relationships. Setting the blur factor to zero turns blurring off. For any other value, each row will be distributed among consecutive rows, using the [gaussian function](https://en.wikipedia.org/wiki/Gaussian_function) for weight. The blur factor is the standard deviation of the function. For example, a blur factor of 2 will distribute each row among the 16 or so surrounding rows, distributed by a gaussian function with a standard deviation of 2.
+
+The "Date start" and "Date end" are somewhat self-explanatory. Observations earlier than the start date or later than the end date will be removed.
