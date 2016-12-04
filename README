@@ -28,7 +28,7 @@ File Stucture
 * `data/repo.R` - Defines `get.all`, which loads the arisa and ciliate data into a data.table.
 * `data/blur.R` - Defines `filter.blur`, which adds each row into adjacent rows, weighted by the gaussian function. This shows the correlation resulting from effects that may have a delay.
 * `data/filter.R` - Defines `filter.all.data`, which removes rows from the data.table based on the input parameters.
-* `documentation/` - Documentation for installing, running, deploying, and using the program.
+* `docs/` - Documentation for installing, running, deploying, and using the program.
 * `source/` - Holds source csv files.
 * `source/ARISA.CSV` - Arisa data.
 * `source/CILIATES_1.CSV`, `source/CILIATES_2.CSV` - Ciliates data.
