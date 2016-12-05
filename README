@@ -48,4 +48,5 @@ File Stucture
 ============================================
 Design Rationale
 =============================================
-In order to 
+One of our goals in designing this application was to enable future teams to be able to extend the application, as well as configure in one place without having to modify much of the code (see "File Structure" section above for more details).
+Configuration to the application can be achieved by modifying the config.R file in the main folder. Each folder has is desginated for a specific function, and all files reference other files using relative paths. In this way, the application files/folders can be placed anyone on a client or server machine and no other changes will need to be made so long as the file structure is as indicated by the File Structure section above.
