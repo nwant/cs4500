@@ -26,7 +26,7 @@ server <- function(input, output) {
 
   output$speciesSelect <- renderUI({
     # set a multiple select picklist that initializes with the first 2 species preselected
-    selectInput("species", "Species", species, multiple = TRUE, selected=species[0:2])
+    selectInput("species", "Species", species, multiple = TRUE, selected=species[0:config$init_species_count])
   })
 
   # initialize species to include at least 2 species
@@ -55,7 +55,7 @@ server <- function(input, output) {
     )
 
     M <- cor(f)
-    p <- corrplot(M, order="alphabet", na.label = config$na_label)
+    p <- corrplot(M, order="alphabet", na.label = config$na_label, diag=config$show_main_diag)
     return(p)
   })
 }

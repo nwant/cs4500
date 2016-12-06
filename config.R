@@ -4,19 +4,16 @@
 #
 get.config <- function() {
     config <- new.env()
-    config$arisa.fp = "./source/ARISA.CSV"
-    config$ciliates.1.fp = "./source/CILIATES_1.CSV"
-
-    #config$blur_max_error = 0.0228 # Minimum value that allows blur_rows to equal 2
-    #config$blur_max_error = 0.00135 # Minimum value that allows blur_rows to equal 3
-     config$blur_max_error = 0.0000317 # Minimum value that allows blur_rows to equal 4
-    #config$blur_max_error = 0.000000287 # Minimum value that allows blur_rows to equal 5
-
-    config$min_date = "2008-01-11"
-    config$init_min_date = "2008-01-11"
-    config$max_date = "2013-08-01"
-    config$init_max_date = "2013-08-01"
-    config$date_format = "yyyy-mm-dd"
-    config$na_label = "-"
+    config$arisa.fp = "./source/ARISA.CSV"            # (relative) filepath for ASISA data
+    config$ciliates.1.fp = "./source/CILIATES_1.CSV"  # (relative) filepath for Ciliates data 
+    config$blur_max_error = 0.0000317                 # Minimum value that allows blur_rows to equal 4
+    config$min_date = "2008-01-11"                    # earlist date allowed for Start Date
+    config$init_min_date = "2008-01-11"               # default date for Start Date
+    config$max_date = "2013-08-01"                    # lastest date allowed for End Date
+    config$init_max_date = "2013-08-01"               # default date for End Date
+    config$date_format = "yyyy-mm-dd"                 # date format for all dates in UI (i.e. Start and End Date)
+    config$na_label = "-"                             # symbol used whenever a N/A value appears in correlation matrix
+    config$show_main_diag = FALSE                     # whether or not to show the main diagonal (species compared w/ itself) in the corrlation matrix
+    config$init_species_count = 2                     # the number of species to have the application select by default (only upon loading)
     return(config)
 }
