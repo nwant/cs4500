@@ -9,6 +9,8 @@ library(testthat)
 source("../../config.R")
 source("../../data/blur.R")
 
+species <- c("Colopodida", "Cyrtophorida")
+
 #--------------------------
 # get.mock.df
 #-------------
